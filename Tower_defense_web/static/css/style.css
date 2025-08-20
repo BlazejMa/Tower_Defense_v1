@@ -1,0 +1,316 @@
+/* static/css/style.css */
+
+/* === Ogólne === */
+body {
+  margin: 0;
+  height: 100vh;
+  background: #222;
+  color: #eee;
+  font-family: sans-serif;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Kontener planszy --- */
+#board-container {
+  position: relative;
+  width: 625px;
+  height: 700px;
+  border: 1px solid #555;
+  cursor: grab;
+}
+#board-container:active {
+  cursor: grabbing;
+}
+
+/* --- Tło i główna plansza --- */
+#game-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 625px;
+  height: 625px;
+  z-index: 0;
+}
+#game-area .cell {
+  z-index: 1;
+}
+
+/* --- Pojedyncze pole planszy --- */
+.cell {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  box-sizing: border-box;
+  border: 1px solid #444;
+}
+.cell.void       { background: #333; }
+.cell.wall       { background: #000; }
+.cell.portal     { background: #f0f; }
+.cell.base       { background: #00f; }
+/* przezroczyste, odsłaniają tło: */
+.cell.open_area,
+.cell.base_area,
+.cell.tower_area {
+  background: transparent;
+}
+
+/* --- Separator --- */
+#sep {
+  position: absolute;
+  left: 0;
+  width: 625px;
+  height: 25px;
+  background: #282828;
+}
+
+/* --- Pola obozu --- */
+.camp-cell {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  box-sizing: border-box;
+  border: 1px solid #444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #000;
+  background: #fff;
+}
+.camp-cell.O { background: #fff; }
+.camp-cell.B { background: #00f; color: #fff; }
+
+/* --- Podświetlenie kafelków --- */
+.expand-tile {
+  position: absolute;
+  background: rgba(255,255,0,0.2);
+  border: 2px dashed yellow;
+  cursor: pointer;
+}
+
+/* --- Struktury --- */
+.structure {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #fff;
+}
+.structure.wall    { background: #000; }
+.structure.tower1  { background: #111; }
+.structure.tower2  { background: #222; }
+.structure.tower3  { background: #333; }
+.structure.tower4  { background: #444; }
+
+/* --- Statystyki obozu --- */
+#stats-camp {
+  position: fixed;
+  left: 225px;
+  top: 20px;
+  background: rgba(0,0,0,0.7);
+  padding: 8px;
+  border: 1px solid #555;
+  color: #fff;
+  font-size: 14px;
+}
+#stats-camp table { border-collapse: collapse; }
+#stats-camp td    { padding: 2px 6px; }
+.positive          { color: #0f0; }
+.negative          { color: #f66; }
+
+/* --- Statystyki gry --- */
+#stats-main {
+  position: fixed;
+  right: 210px;
+  top: 20px;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.7);
+  padding: 8px;
+  border: 1px solid #555;
+  color: #fff;
+  font-size: 14px;
+}
+#stats-main table { border-collapse: collapse; }
+#stats-main td    { padding: 2px 6px; }
+
+/* --- Panel ulepszeń wież --- */
+#upgrade-menu {
+  position: fixed;
+  right: 0;
+  top: 20px;
+  width: 200px;
+  padding: 10px;
+  background: #333;
+  border: 1px solid #555;
+  color: #eee;
+  font-size: 14px;
+  z-index: 100;
+}
+#upgrade-menu h3 {
+  margin-top: 0;
+  font-size: 18px;
+  text-align: center;
+}
+#upgrade-menu select,
+#upgrade-menu button {
+  width: 100%;
+  margin-bottom: 6px;
+  padding: 4px;
+  background: #555;
+  border: 1px solid #777;
+  color: #eee;
+  cursor: pointer;
+}
+#upgrade-menu button:hover {
+  border-color: yellow;
+}
+#upgrade-menu .upgrade-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#upgrade-menu .upgrade-list li {
+  margin-bottom: 6px;
+  cursor: pointer;
+  padding: 4px;
+  background: #444;
+  border: 1px solid #666;
+}
+#upgrade-menu .upgrade-list li:hover {
+  background: #555;
+}
+
+/* --- Menu obozu --- */
+#camp-menu {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 200px;
+  padding: 10px;
+  background: #333;
+}
+#camp-menu h3 {
+  margin-top: 0;
+  font-size: 18px;
+  text-align: center;
+}
+#camp-menu button {
+  width: 100%;
+  margin-bottom: 6px;
+  padding: 8px;
+  background: #555;
+  border: 1px solid #777;
+  color: #eee;
+  cursor: pointer;
+}
+#camp-menu button.selected {
+  border-color: yellow;
+}
+
+/* --- Menu gry (budowanie murów i wież) --- */
+#menu {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 200px;
+  padding: 10px;
+  background: #333;
+}
+#menu h3 {
+  margin-top: 0;
+  font-size: 18px;
+  text-align: center;
+}
+#menu button {
+  width: 100%;
+  margin-bottom: 6px;
+  padding: 8px;
+  background: #555;
+  border: 1px solid #777;
+  color: #eee;
+  cursor: pointer;
+}
+#menu button.selected {
+  border-color: yellow;
+}
+
+/* --- Kolory budynków obozu --- */
+.camp-cell.building { background: transparent !important; }
+/* Domek */      .camp-cell.building.house       { background: #b5e7a0 !important; color: #0a5128 !important; }
+/* Posiadłość */ .camp-cell.building.mansion     { background: #f8c3cd !important; color: #7a263a !important; }
+/* Farma */      .camp-cell.building.farm        { background: #fde47f !important; color: #7a5e00 !important; }
+/* Tartak */     .camp-cell.building.sawmill     { background: #d2b48c !important; color: #5a3e1b !important; }
+/* Kopalnia */   .camp-cell.building.quarry      { background: #9e9e9e !important; color: #2b2b2b !important; }
+/* Kop. rudy */  .camp-cell.building.iron_mine   { background: #c1440e !important; color: #fff5eb !important; }
+/* Huta */       .camp-cell.building.smelter     { background: #ff9e2c !important; color: #4a2400 !important; }
+/* Diamenty */   .camp-cell.building.diamond_mine{ background: #a0e7e5 !important; color: #004f4f !important; }
+
+.path-cell {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  pointer-events: none;
+  z-index: 2;
+}
+/* poziomo */
+.path-cell.h::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  border-top: 2px dashed orange;
+  transform: translateY(-50%);
+}
+/* pionowo */
+.path-cell.v::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  border-left: 2px dashed orange;
+  transform: translateX(-50%);
+}
+/* zakręty – używamy dwóch pseudo-elementów */
+.path-cell.corner::before,
+.path-cell.corner::after {
+  content: "";
+  position: absolute;
+  border: 2px dashed orange;
+}
+.path-cell.corner::before {
+  top: 50%; left: 50%;
+  width: 50%; height: 0;
+  border-top: 2px dashed orange;
+  transform: translate(-50%, -50%);
+}
+.path-cell.corner::after {
+  top: 50%; left: 50%;
+  width: 0; height: 50%;
+  border-left: 2px dashed orange;
+  transform: translate(-50%, -50%);
+}
+/* ===== styl przeciwników (czerwone kropki) ===== */
+.enemy {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #c62828;
+  position: absolute;
+  transform: translateZ(0);
+  pointer-events: none;
+  z-index: 6;
+  box-shadow: 0 0 6px rgba(198,40,40,0.6);
+}
+
+.tower-projectile { will-change: transform; border: 0; }

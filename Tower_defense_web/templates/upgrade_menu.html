@@ -1,0 +1,278 @@
+<!-- templates/upgrade_menu.html -->
+<div id="upgrade-menu">
+  <h3>Ulepszenia wież</h3>
+  <button class="upgrade-button">Wybierz typ i kategorię</button>
+
+  <div class="upgrade-controls" style="display: none;">
+    <label for="upgrade-tower-type">Typ wieży:</label>
+    <select id="upgrade-tower-type">
+      <option value="tower1">Wieża 1</option>
+      <option value="tower2">Wieża 2</option>
+      <option value="tower3">Wieża 3</option>
+      <option value="tower4">Wieża 4</option>
+      <option value="tower5">Wieża 5</option>
+    </select>
+
+    <label for="upgrade-category">Kategoria:</label>
+    <select id="upgrade-category">
+      <option value="range">Zasięg</option>
+      <option value="speed">Szybkość</option>
+      <option value="damage">Obrażenia</option>
+      <option value="strategic">Strategiczne</option>
+    </select>
+  </div>
+
+  <ul id="upgrade-list" class="upgrade-list" style="display: none;">
+
+    <!-- tower1 / ZASIĘG -->
+    <li class="upgrade-action"
+        data-tower-type="tower1" data-category="range" data-upgrade-index="1"
+        data-cost-wood="3" data-cost-stone="0" data-cost-iron_ore="0"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Zasięg +0 <span class="cost">(3 drewna)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+    <li class="upgrade-action"
+        data-tower-type="tower1" data-category="range" data-upgrade-index="2"
+        data-cost-wood="6" data-cost-stone="3" data-cost-iron_ore="0"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Zasięg +1 <span class="cost">(6 drewna, 3 kamienia)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+
+    <!-- tower1 / SZYBKOŚĆ -->
+    <li class="upgrade-action"
+        data-tower-type="tower1" data-category="speed" data-upgrade-index="1"
+        data-cost-wood="4" data-cost-stone="2" data-cost-iron_ore="0"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Szybkość +0.25/s <span class="cost">(4 drewna, 2 kamienia)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+    <li class="upgrade-action"
+        data-tower-type="tower1" data-category="speed" data-upgrade-index="2"
+        data-cost-wood="0" data-cost-stone="8" data-cost-iron_ore="2"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Szybkość +0.25/s <span class="cost">(8 kamienia, 2 rudy żelaza)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+
+    <!-- tower1 / OBRAŻENIA -->
+    <li class="upgrade-action"
+        data-tower-type="tower1" data-category="damage" data-upgrade-index="1"
+        data-cost-wood="4" data-cost-stone="3" data-cost-iron_ore="0"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Obrażenia +0.25 hp <span class="cost">(4 drewna, 3 kamienia)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+    <li class="upgrade-action"
+        data-tower-type="tower1" data-category="damage" data-upgrade-index="2"
+        data-cost-wood="0" data-cost-stone="6" data-cost-iron_ore="3"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Obrażenia +0.25 hp <span class="cost">(6 kamienia, 3 rudy żelaza)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+
+    <!-- tower1 / STRATEGICZNE -->
+    <li class="upgrade-action"
+        data-tower-type="tower1" data-category="strategic" data-upgrade-index="1"
+        data-cost-wood="0" data-cost-stone="0" data-cost-iron_ore="0"
+        data-cost-iron_bar="6" data-cost-diamond="2" data-cost-food="10">
+      Tymczasowo podwójny strzał
+      <span class="cost">(6 sztabek żelaza, 2 diamenty, 10 żywności)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+
+    <!-- tower2 / ZASIĘG -->
+    <li class="no-upgrades"
+        data-tower-type="tower2" data-category="range">
+      Brak ulepszeń
+    </li>
+
+    <!-- tower2 / SZYBKOŚĆ -->
+    <li class="upgrade-action"
+        data-tower-type="tower2" data-category="speed" data-upgrade-index="1"
+        data-cost-wood="4" data-cost-stone="3" data-cost-iron_ore="0"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Szybkość +0.15/s <span class="cost">(4 drewna, 3 kamienia)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+    <li class="upgrade-action"
+        data-tower-type="tower2" data-category="speed" data-upgrade-index="2"
+        data-cost-wood="0" data-cost-stone="9" data-cost-iron_ore="4"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Szybkość +0.10/s <span class="cost">(9 kamienia, 4 rudy żelaza)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+
+    <!-- tower2 / OBRAŻENIA -->
+    <li class="upgrade-action"
+        data-tower-type="tower2" data-category="damage" data-upgrade-index="1"
+        data-cost-wood="5" data-cost-stone="4" data-cost-iron_ore="0"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Obrażenia +0.35 hp <span class="cost">(5 drewna, 4 kamienia)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+    <li class="upgrade-action"
+        data-tower-type="tower2" data-category="damage" data-upgrade-index="2"
+        data-cost-wood="0" data-cost-stone="8" data-cost-iron_ore="5"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Obrażenia +0.40 hp <span class="cost">(8 kamienia, 5 rudy żelaza)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+
+    <!-- tower2 / STRATEGICZNE -->
+    <li class="upgrade-action"
+        data-tower-type="tower2" data-category="strategic" data-upgrade-index="1"
+        data-cost-wood="0" data-cost-stone="8" data-cost-iron_ore="8"
+        data-cost-iron_bar="4" data-cost-diamond="3" data-cost-food="15">
+      Dwukrotny atak
+      <span class="cost">(8 kamienia, 8 rudy, 4 sztabki żelaza, 3 diamenty, 15 żywności)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+
+    <!-- tower3 / ZASIĘG -->
+    <li class="upgrade-action"
+        data-tower-type="tower3" data-category="range" data-upgrade-index="1"
+        data-cost-wood="4" data-cost-stone="0" data-cost-iron_ore="0"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Zasięg +0 <span class="cost">(4 drewna)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+    <li class="upgrade-action"
+        data-tower-type="tower3" data-category="range" data-upgrade-index="2"
+        data-cost-wood="6" data-cost-stone="4" data-cost-iron_ore="0"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Zasięg +1 <span class="cost">(6 drewna, 4 kamienia)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+
+    <!-- tower3 / SZYBKOŚĆ -->
+    <li class="no-upgrades"
+        data-tower-type="tower3" data-category="speed">
+      Brak ulepszeń
+    </li>
+
+    <!-- tower3 / OBRAŻENIA -->
+    <li class="upgrade-action"
+        data-tower-type="tower3" data-category="damage" data-upgrade-index="1"
+        data-cost-wood="6" data-cost-stone="5" data-cost-iron_ore="0"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Obrażenia +0.75 hp <span class="cost">(6 drewna, 5 kamienia)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+    <li class="upgrade-action"
+        data-tower-type="tower3" data-category="damage" data-upgrade-index="2"
+        data-cost-wood="0" data-cost-stone="10" data-cost-iron_ore="6"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Obrażenia +0.75 hp <span class="cost">(10 kamienia, 6 rudy żelaza)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+
+    <!-- tower3 / STRATEGICZNE -->
+    <li class="upgrade-action"
+        data-tower-type="tower3" data-category="strategic" data-upgrade-index="1"
+        data-cost-wood="0" data-cost-stone="0" data-cost-iron_ore="0"
+        data-cost-iron_bar="10" data-cost-diamond="6" data-cost-food="0">
+      Tymczasowo podwójny strzał
+      <span class="cost">(10 sztabek żelaza, 6 diamentów)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+
+    <!-- tower4 / ZASIĘG -->
+    <li class="upgrade-action"
+        data-tower-type="tower4" data-category="range" data-upgrade-index="1"
+        data-cost-wood="6" data-cost-stone="6" data-cost-iron_ore="4"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Zasięg +0 <span class="cost">(6 drewna, 6 kamienia, 4 rudy żelaza)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+    <li class="upgrade-action"
+        data-tower-type="tower4" data-category="range" data-upgrade-index="2"
+        data-cost-wood="8" data-cost-stone="12" data-cost-iron_ore="10"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Zasięg +1 <span class="cost">(8 drewna, 12 kamienia, 10 rudy żelaza)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+
+    <!-- tower4 / SZYBKOŚĆ -->
+    <li class="upgrade-action"
+        data-tower-type="tower4" data-category="speed" data-upgrade-index="1"
+        data-cost-wood="5" data-cost-stone="5" data-cost-iron_ore="4"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Szybkość +0.25/s <span class="cost">(5 drewna, 5 kamienia, 4 rudy żelaza)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+    <li class="upgrade-action"
+        data-tower-type="tower4" data-category="speed" data-upgrade-index="2"
+        data-cost-wood="8" data-cost-stone="10" data-cost-iron_ore="8"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Szybkość +0.25/s <span class="cost">(8 drewna, 10 kamienia, 8 rudy żelaza)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+
+    <!-- tower4 / OBRAŻENIA -->
+    <li class="upgrade-action"
+        data-tower-type="tower4" data-category="damage" data-upgrade-index="1"
+        data-cost-wood="6" data-cost-stone="6" data-cost-iron_ore="5"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Obrażenia +0.35 hp <span class="cost">(6 drewna, 6 kamienia, 5 rudy żelaza)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+    <li class="upgrade-action"
+        data-tower-type="tower4" data-category="damage" data-upgrade-index="2"
+        data-cost-wood="8" data-cost-stone="12" data-cost-iron_ore="10"
+        data-cost-iron_bar="0" data-cost-diamond="0" data-cost-food="0">
+      Obrażenia +0.40 hp <span class="cost">(8 drewna, 12 kamienia, 10 rudy żelaza)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+
+    <!-- tower4 / STRATEGICZNE -->
+    <li class="upgrade-action"
+        data-tower-type="tower4" data-category="strategic" data-upgrade-index="1"
+        data-cost-wood="0" data-cost-stone="0" data-cost-iron_ore="0"
+        data-cost-iron_bar="8" data-cost-diamond="8" data-cost-food="20">
+      Tymczasowo podwójny strzał
+      <span class="cost">(8 sztabek żelaza, 8 diamentów, 20 żywności)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+
+    <!-- tower5 / ZASIĘG -->
+    <li class="no-upgrades"
+        data-tower-type="tower5" data-category="range">
+      Brak ulepszeń
+    </li>
+
+    <!-- tower5 / SZYBKOŚĆ -->
+    <li class="no-upgrades"
+        data-tower-type="tower5" data-category="speed">
+      Brak ulepszeń
+    </li>
+
+    <!-- tower5 / OBRAŻENIA -->
+    <li class="upgrade-action"
+        data-tower-type="tower5" data-category="damage" data-upgrade-index="1"
+        data-cost-wood="0" data-cost-stone="12" data-cost-iron_ore="0"
+        data-cost-iron_bar="6" data-cost-diamond="0" data-cost-food="0">
+      Obrażenia +2 hp <span class="cost">(12 kamienia, 6 sztabek żelaza)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+    <li class="upgrade-action"
+        data-tower-type="tower5" data-category="damage" data-upgrade-index="2"
+        data-cost-wood="0" data-cost-stone="18" data-cost-iron_ore="0"
+        data-cost-iron_bar="0" data-cost-diamond="4" data-cost-food="0">
+      Obrażenia +2 hp <span class="cost">(18 kamienia, 4 diamenty)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+
+    <!-- tower5 / STRATEGICZNE -->
+    <li class="upgrade-action"
+        data-tower-type="tower5" data-category="strategic" data-upgrade-index="1"
+        data-cost-wood="80" data-cost-stone="40" data-cost-iron_ore="30"
+        data-cost-iron_bar="25" data-cost-diamond="15" data-cost-food="30">
+      Tymczasowo podwójny strzał
+      <span class="cost">(80 drewna, 40 kamienia, 30 rudy, 25 sztabek żelaza, 15 diamentów, 30 żywności)</span>
+      <button class="buy-upgrade">Kup</button>
+    </li>
+
+  </ul>
+</div>

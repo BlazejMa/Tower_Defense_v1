@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Tower Defense + Camp</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <div id="board-container">
+
+    <!-- 1) Główna plansza: komórki + opcjonalne tło obrazka (losowane przez serwer) -->
+    <div id="game-area"
+         style="
+           background-image:
+             {% if board.bg_image %}
+               url('{{ url_for('static', filename='img/' ~ board.bg_image) }}')
+             {% else %}
+               none
+             {% endif %};
+           background-repeat: no-repeat;
+           background-position: top center;
+           background-size: auto {{ board.total_rows*25 }}px;
+         ">
+      {% for r in range(board.total_rows) %}
+        {% for c in range(board.total_cols) %}
+          <div class="cell {{ board.grid2d[r][c] }}"
+               style="top:{{ r*25 }}px; left:{{ c*25 }}px;"></div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+
+    <!-- 2) Separator oddzielający planszę od obozu (pozycjonowany wg board.separator_y) -->
+    <div id="sep" style="top:{{ board.separator_y*25 }}px"></div>
+
+    <!-- 3) Obóz: komórki obozu i ewentualne budynki (litera / klasa wskazują typ) -->
+    <div id="camp-area">
+      {% for cell in board.camp %}
+        <div class="cell camp-cell
+                    {% if cell.b %} building {{ cell.bt }} {% else %} {{ cell.t }} {% endif %}"
+             data-x="{{ cell.x }}" data-y="{{ cell.y }}"
+             style="top:{{ cell.y*25 }}px; left:{{ cell.x*25 }}px;">
+          {% if cell.b %}
+            {% if cell.bt == 'house' %}D
+            {% elif cell.bt == 'mansion' %}P
+            {% elif cell.bt == 'farm'    %}F
+            {% elif cell.bt == 'sawmill' %}T
+            {% elif cell.bt == 'quarry'  %}K
+            {% elif cell.bt == 'iron_mine'%}KŻ
+            {% elif cell.bt == 'smelter'  %}HŻ
+            {% elif cell.bt == 'diamond_mine'%}KD
+            {% endif %}
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- 4) Podświetlenia pól, które można rozszerzyć (klikane przez użytkownika) -->
+    {% for tile in board.allowed_tiles %}
+      <div class="expand-tile"
+           data-tx="{{ tile.tx }}" data-ty="{{ tile.ty }}"
+           style="
+             top:{{ tile.ty*board.tile_size*25 }}px;
+             left:{{ tile.tx*board.tile_size*25 }}px;
+             width:{{ board.tile_size*25 }}px;
+             height:{{ board.tile_size*25 }}px;
+           "></div>
+    {% endfor %}
+
+    <!-- 5) Struktury na planszy: mury i wieże (tekst wewnątrz dla czytelności) -->
+    {% for s in board.structures %}
+      <div class="structure {{ s.t }}"
+           style="top:{{ s.y*25 }}px; left:{{ s.x*25 }}px;">
+        {% if s.t.startswith("tower") %}W{{ s.t[5:] }}{% endif %}
+      </div>
+    {% endfor %}
+
+  </div>
+
+
+  {% if board.first_tile_placed %}
+
+    <!-- A) Panel zasobów obozu: ilości i przewidywane przychody (lewy górny róg) -->
+    <div id="stats-camp">
+      <strong>Obóz – zasoby i siła robocza</strong>
+      <table>
+        <tr>
+          <td>Drewno:</td>
+          <td>
+            {{ board.resources.wood }}
+            {% if board.income.wood %}
+              (<span class="{{ 'positive' if board.income.wood>0 else 'negative' }}">
+                {{ '+' if board.income.wood>0 else '' }}{{ board.income.wood }}
+              </span>)
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>Kamień:</td>
+          <td>
+            {{ board.resources.stone }}
+            {% if board.income.stone %}
+              (<span class="{{ 'positive' if board.income.stone>0 else 'negative' }}">
+                {{ '+' if board.income.stone>0 else '' }}{{ board.income.stone }}
+              </span>)
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>Ruda żelaza:</td>
+          <td>
+            {{ board.resources.iron_ore }}
+            {% if board.income.iron_ore %}
+              (<span class="{{ 'positive' if board.income.iron_ore>0 else 'negative' }}">
+                {{ '+' if board.income.iron_ore>0 else '' }}{{ board.income.iron_ore }}
+              </span>)
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>Sztabki żelaza:</td>
+          <td>
+            {{ board.resources.iron_bar }}
+            {% if board.income.iron_bar %}
+              (<span class="{{ 'positive' if board.income.iron_bar>0 else 'negative' }}">
+                {{ '+' if board.income.iron_bar>0 else '' }}{{ board.income.iron_bar }}
+              </span>)
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>Diamenty:</td>
+          <td>
+            {{ board.resources.diamond }}
+            {% if board.income.diamond %}
+              (<span class="{{ 'positive' if board.income.diamond>0 else 'negative' }}">
+                {{ '+' if board.income.diamond>0 else '' }}{{ board.income.diamond }}
+              </span>)
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td>Chłopi (ogółem):</td>
+          <td id="stat-peasants">{{ board.peasants }}</td>
+        </tr>
+        <tr>
+          <td>Bezrobotni:</td>
+          <td id="stat-unemployed">{{ board.unemployed }}</td>
+        </tr>
+        <tr>
+          <td>Żywność:</td>
+          <td id="stat-food">
+            {{ board.food }}
+            {% if board.income.food is defined and board.income.food!=0 %}
+              (<span class="{{ 'positive' if board.income.food>0 else 'negative' }}">
+                {{ '+' if board.income.food>0 else '' }}{{ board.income.food }}
+              </span>)
+            {% endif %}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- B) Podstawowe statystyki gry: HP, złoto, fala, aktywni wrogowie, czas -->
+    <div id="stats-main">
+      <strong>Statystyki gry</strong>
+      <table>
+        <tr><td>Zdrowie:</td>  <td id="stat-health">{{ board.hp }}</td></tr>
+        <tr><td>Złoto:</td>    <td id="stat-gold">{{ board.gold }}</td></tr>
+        <tr><td>Fala:</td>     <td id="stat-wave">{{ board.wave }}</td></tr>
+        <tr><td>Żywi wrogowie:</td> <td id="stat-enemies">0</td></tr>
+        <tr><td>Czas gry:</td> <td id="stat-time">{{ board.time }} s</td></tr>
+      </table>
+    </div>
+
+    <!-- C) Panel ulepszeń wież (wstawiany z oddzielnego szablonu) -->
+    {% include 'upgrade_menu.html' %}
+
+    <!-- D) Kontrolki fali: start fali -->
+    <div id="wave-controls">
+      <button id="btn-start-wave">Start fali</button>
+    </div>
+
+    <!-- E) Menu obozu: przyciski do budowy obozowych budynków -->
+    <div id="camp-menu">
+      <h3>Obóz – budynki</h3>
+      <button data-camp="house">Domek (D)</button>
+      <button data-camp="mansion">Posiadłość (P)</button>
+      <button data-camp="farm">Farma (F)</button>
+      <button data-camp="sawmill">Tartak (T)</button>
+      <button data-camp="quarry">Kopalnia (K)</button>
+      <button data-camp="iron_mine">Kopalnia żelaza (KŻ)</button>
+      <button data-camp="smelter">Huta żelaza (HŻ)</button>
+      <button data-camp="diamond_mine">Kopalnia diamentów (KD)</button>
+      <p>Kliknij budynek, potem pole obozu.</p>
+    </div>
+
+    <!-- F) Menu budowy na planszy: wybór muru / wież -->
+    <div id="menu">
+      <h3>Gra – buduj <br> (dmg/spd/rng)</h3>
+      <button data-type="wall">Mur (5 zł)</button>
+      <button data-type="tower1">Wieża 1 (10 zł)<br> (1/1/1)</button>
+      <button data-type="tower2">Wieża 2 (25 zł)<br> (1.5/1/2)</button>
+      <button data-type="tower3">Wieża 3 (25 zł)<br> (3/0.5/1)</button>
+      <button data-type="tower4">Wieża 4 (50 zł)<br> (4/0.5/2)</button>
+      <button data-type="tower5">Wieża 5 (75 zł)<br> (5/1/2)</button>
+      <p>Kliknij przycisk, potem pole planszy.</p>
+    </div>
+
+  {% endif %}
+
+  <!-- Skrypty: główna logika, AI przeciwników, debug itp. -->
+  <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/tower.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/path.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/enemies.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/debug_menu.js') }}"></script>
+</body>
+</html>
