@@ -9,3 +9,7 @@ Uruchomienie lokalnie:
 3. Uruchom:
    python run_app.py
 4. Otwórz: http://127.0.0.1:5000
+
+
+Link do wersji .exe
+https://drive.google.com/drive/folders/1YGRA9JX4YjTSshIQsZ3izN4Zc_9gZcpR?usp=sharing
